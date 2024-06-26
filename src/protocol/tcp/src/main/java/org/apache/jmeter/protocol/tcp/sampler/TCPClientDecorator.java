@@ -46,7 +46,7 @@ public abstract class TCPClientDecorator extends AbstractTCPClient {
             } else {
                 byte[] b = new byte[len];
                 for (int i = 0; i < len; i++) {
-                    int offset = (b.length - 1 - i) * 8;
+                    int offset = (i) * 8;
                     b[i] = (byte) ((value >>> offset) & 0xFF);
                 }
                 return b;
@@ -68,10 +68,10 @@ public abstract class TCPClientDecorator extends AbstractTCPClient {
     public static int byteArrayToInt(byte[] b) {
         if (b != null && (b.length == 2 || b.length == 4)) {
             // Preserve sign on first byte
-            int value = b[0] << ((b.length - 1) * 8);
+            int value = b[0];
 
             for (int i = 1; i < b.length; i++) {
-                int offset = (b.length - 1 - i) * 8;
+                int offset = (i) * 8;
                 value += (b[i] & 0xFF) << offset;
             }
             return value;
